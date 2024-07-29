@@ -66,6 +66,11 @@ final class Sender implements SenderInterface
         $renderedEmail = $this->rendererAdapter->render($email, $data);
 
         if (count($arguments) > 5 && $this->senderAdapter instanceof CcAwareAdapterInterface) {
+            /** @var array<string> $ccRecipients */
+            $ccRecipients = $arguments[5] ?? [];
+            /** @var array<string> $bccRecipients */
+            $bccRecipients = $arguments[6] ?? [];
+
             $this->senderAdapter->sendWithCC(
                 $recipients,
                 $senderAddress,
@@ -75,8 +80,8 @@ final class Sender implements SenderInterface
                 $data,
                 $attachments,
                 $replyTo,
-                $arguments[5] ?? [],
-                $arguments[6] ?? [],
+                $ccRecipients,
+                $bccRecipients,
             );
 
             return;
