@@ -22,24 +22,8 @@ use Webmozart\Assert\Assert;
 
 final class Sender implements SenderInterface
 {
-    private RendererAdapterInterface $rendererAdapter;
-
-    private SenderAdapterInterface $senderAdapter;
-
-    private EmailProviderInterface $provider;
-
-    private DefaultSettingsProviderInterface $defaultSettingsProvider;
-
-    public function __construct(
-        RendererAdapterInterface $rendererAdapter,
-        SenderAdapterInterface $senderAdapter,
-        EmailProviderInterface $provider,
-        DefaultSettingsProviderInterface $defaultSettingsProvider,
-    ) {
-        $this->senderAdapter = $senderAdapter;
-        $this->rendererAdapter = $rendererAdapter;
-        $this->provider = $provider;
-        $this->defaultSettingsProvider = $defaultSettingsProvider;
+    public function __construct(private RendererAdapterInterface $rendererAdapter, private SenderAdapterInterface $senderAdapter, private EmailProviderInterface $provider, private DefaultSettingsProviderInterface $defaultSettingsProvider)
+    {
     }
 
     /**
