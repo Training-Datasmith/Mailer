@@ -22,8 +22,7 @@ class EmailRenderEvent extends Event
         protected \Sylius\Component\Mailer\Renderer\RenderedEmail $renderedEmail,
         /** @var string[] */
         protected array $recipients = []
-    )
-    {
+    ) {
     }
 
     public function getRenderedEmail(): RenderedEmail

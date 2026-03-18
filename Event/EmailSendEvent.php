@@ -29,8 +29,7 @@ final class EmailSendEvent extends Event
         protected array $recipients = [],
         /** @var string[] */
         protected array $replyTo = []
-    )
-    {
+    ) {
     }
 
     public function getRecipients(): array

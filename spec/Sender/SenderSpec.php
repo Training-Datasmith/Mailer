@@ -24,7 +24,7 @@ use Sylius\Component\Mailer\Sender\Adapter\CcAwareAdapterInterface as SenderAdap
 
 final class SenderSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         RendererAdapterInterface $rendererAdapter,
         SenderAdapterInterface $senderAdapter,
         EmailProviderInterface $provider,
@@ -33,7 +33,7 @@ final class SenderSpec extends ObjectBehavior
         $this->beConstructedWith($rendererAdapter, $senderAdapter, $provider, $defaultSettingsProvider);
     }
 
-    function it_sends_an_email_through_the_adapter(
+    public function it_sends_an_email_through_the_adapter(
         EmailInterface $email,
         EmailProviderInterface $provider,
         RenderedEmail $renderedEmail,
@@ -62,7 +62,7 @@ final class SenderSpec extends ObjectBehavior
         $this->send('bar', ['john@example.com'], $data, [], []);
     }
 
-    function it_sends_an_email_with_cc_and_bcc_through_the_adapter(
+    public function it_sends_an_email_with_cc_and_bcc_through_the_adapter(
         EmailInterface $email,
         EmailProviderInterface $provider,
         RenderedEmail $renderedEmail,
@@ -93,7 +93,7 @@ final class SenderSpec extends ObjectBehavior
         $this->send('bar', ['john@example.com'], $data, [], [], ['cc@example.com'], ['bcc@example.com']);
     }
 
-    function it_does_not_send_disabled_emails(
+    public function it_does_not_send_disabled_emails(
         EmailInterface $email,
         EmailProviderInterface $provider,
         RendererAdapterInterface $rendererAdapter,
@@ -108,7 +108,7 @@ final class SenderSpec extends ObjectBehavior
         $this->send('bar', ['john@example.com'], ['foo' => 2], []);
     }
 
-    function it_throws_an_exception_if_wrong_value_is_provided_as_recipient_email(
+    public function it_throws_an_exception_if_wrong_value_is_provided_as_recipient_email(
         RendererAdapterInterface $rendererAdapter,
         SenderAdapterInterface $senderAdapter,
     ): void {
