@@ -22,12 +22,38 @@ use Webmozart\Assert\Assert;
 
 final class Sender implements SenderInterface
 {
-    public function __construct(private RendererAdapterInterface $rendererAdapter, private SenderAdapterInterface $senderAdapter, private EmailProviderInterface $provider, private DefaultSettingsProviderInterface $defaultSettingsProvider)
-    {
+    /**
+     * Creates the email sender with all required collaborators.
+     *
+     * @param RendererAdapterInterface        $rendererAdapter        Adapter that renders the email template to HTML/text
+     * @param SenderAdapterInterface          $senderAdapter          Adapter that delivers the rendered email via a transport
+     * @param EmailProviderInterface          $provider               Provides Email model instances by code
+     * @param DefaultSettingsProviderInterface $defaultSettingsProvider Fallback sender address and name when not set on the email
+     */
+    public function __construct(
+        private readonly RendererAdapterInterface $rendererAdapter,
+        private readonly SenderAdapterInterface $senderAdapter,
+        private readonly EmailProviderInterface $provider,
+        private readonly DefaultSettingsProviderInterface $defaultSettingsProvider,
+    ) {
     }
 
     /**
-     * {@inheritdoc}
+     * Renders and sends an email identified by code to one or more recipients.
+     *
+     * If the email is disabled in configuration, the method returns without sending.
+     * When more than 5 arguments are provided and the sender adapter implements
+     * CcAwareAdapterInterface, CC and BCC lists from arguments 6 and 7 are forwarded.
+     *
+     * @param string   $code        Email code identifying the template and settings to use
+     * @param string[] $recipients  Non-empty list of recipient email addresses
+     * @param array    $data        Template variables passed to the renderer
+     * @param array    $attachments File attachments to include in the email
+     * @param array    $replyTo     Reply-to email addresses
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException If any recipient address is an empty string
      */
     public function send(
         string $code,

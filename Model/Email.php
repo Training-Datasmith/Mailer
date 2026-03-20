@@ -13,13 +13,24 @@ declare(strict_types=1);
 
 namespace Sylius\Component\Mailer\Model;
 
+/**
+ * Value object representing an email template configuration.
+ *
+ * Stores the template code, subject, content, Twig template path, and
+ * per-email sender overrides. When sender fields are null the Sender service
+ * falls back to the DefaultSettingsProvider configured globally.
+ *
+ * @see EmailInterface For the full property contract
+ */
 final class Email implements EmailInterface
 {
-    /** @var mixed */
+    /** @var mixed Primary key (set by persistence layer; null for transient instances) */
     private $id;
 
+    /** @var string|null Unique code used to look up this email (e.g. 'sylius.user.welcome') */
     private ?string $code = null;
 
+    /** @var bool Whether this email template is active; disabled emails are silently dropped by Sender */
     private bool $enabled = true;
 
     private ?string $subject = null;
@@ -33,7 +44,9 @@ final class Email implements EmailInterface
     private ?string $senderAddress = null;
 
     /**
-     * @return mixed
+     * Returns the primary key of this email entity.
+     *
+     * @return mixed The ID value as assigned by the persistence layer, or null for transient instances
      */
     public function getId()
     {
