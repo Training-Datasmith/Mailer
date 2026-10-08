@@ -28,7 +28,16 @@
         "webmozart/assert": "^1.9"
     },
     "require-dev": {
-        "phpspec/phpspec": "^7.0"
+        "phpspec/phpspec": "^7.0",
+        "phpunit/phpunit": "9.6.38",
+        "sylius-labs/polyfill-symfony-event-dispatcher": "1.1.0",
+        "symfony/event-dispatcher": "5.4.45",
+        "symfony/event-dispatcher-contracts": "2.5.4"
+    },
+    "config": {
+        "platform": {
+            "php": "8.0.30"
+        }
     },
     "extra": {
         "branch-alias": {
@@ -42,7 +51,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sylius\\Component\\Mailer\\spec\\": "spec/"
+            "Sylius\\Component\\Mailer\\spec\\": "spec/",
+            "Sylius\\Component\\Mailer\\Tests\\": "tests/"
         }
     }
 }
